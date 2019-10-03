@@ -10,9 +10,10 @@
     {% endfor %}
 
     {# TODO, eventually remove these form individual twig files and enable this one
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     #}
 
+    <a href="/js/javascript.js" target="_blank" class="black-btn" rel="jslicense" style="display:none">JavaScript license information</a>
     {% for js_ref in js %}
     <script type='text/javascript' src='{{ js_ref }}'></script>
     {% endfor %}
