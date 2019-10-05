@@ -271,6 +271,7 @@ function editPost(post_id, thread_id, shouldEditThread, render_markdown, csrf_to
                 $('#thread_post_anon_edit').remove();
             }
             $('#edit-user-post').css('display', 'block');
+            $(contentBox).outerHeight(38).outerHeight(contentBox.scrollHeight);
 
             $(".cat-buttons input").prop('checked', false);
 
