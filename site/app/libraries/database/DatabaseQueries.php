@@ -6005,4 +6005,26 @@ AND gc_id IN (
         }
         return '';
     }
+
+
+    //adds a user's fcm_id to the database.
+    //If the fcm_id is empty it wont be added
+    //This will overwrite an old fcm_id in the database
+    public function updateFcmId($user_id, $fcm_id) {
+        if($fcm_id  == null || $fcm_id == ''){
+            return;
+        }
+        $this->submitty_db->query(
+            "UPDATE users SET fcm_id=array_append(fcm_id, ?) WHERE user_id=?",
+            array($fcm_id, $user_id)
+        );
+    }
+    //returns a user's fcm id
+    public function getFcmId($user_id) {
+        $this->submitty_db->query(
+            "SELECT fcm_id FROM users WHERE user_id=?",
+            array($user_id)
+        );
+        return $this->submitty_db->rows()[0]['fcm_id'];
+    }
 }

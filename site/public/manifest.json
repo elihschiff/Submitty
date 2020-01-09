@@ -7,8 +7,9 @@
 	"orientation" : "portrait",
 	"lang" : "English",
 	"background_color" : "#DCC308",
-    "theme_color": "#DCC308",
-    "icons": [
+	"theme_color": "#DCC308",
+	"gcm_sender_id": "324073352428",
+	"icons": [
         {
           "src": "/img/moorthy_duck.png",
           "type": "image/png",

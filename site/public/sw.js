@@ -50,3 +50,49 @@ self.addEventListener("refreshOffline", function () {
     });
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+self.addEventListener('push', function(e) {
+  var body;
+
+  if (e.data) {
+    body = e.data.text();
+  } else {
+    body = 'Push message no payload';
+  }
+
+  var options = {
+    body: body,
+    icon: 'img/moorthy_duck.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    },
+    actions: [
+      {action: 'explore', title: 'Explore this new world',
+        icon: 'img/submitty_logo.png'},
+      {action: 'close', title: 'I don\'t want any of this',
+        icon: 'img/moorthy_halloween.png'},
+    ]
+  };
+  e.waitUntil(
+    self.registration.showNotification('Push Notification', options)
+  );
+});
