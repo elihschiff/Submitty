@@ -7,6 +7,8 @@ use app\models\Email;
 use app\models\Notification;
 use app\models\User;
 use LogicException;
+use Minishlink\WebPush\WebPush;
+use Minishlink\WebPush\Subscription;
 
 /**
  * A factory class that will handle all notification events and send notifications and emails accordingly
@@ -209,6 +211,28 @@ class NotificationFactory {
                 $flattened_notifications[] = $notification->getNotifyContent();
                 $flattened_notifications[] = $notification->getNotifySource();
                 $flattened_notifications[] = $notification->getNotifyTarget();
+
+
+                //Send push notification
+                $auth = [
+                    'VAPID' => [
+                        'subject' => 'mailto:me@website.com', // can be a mailto: or your website address
+                        'publicKey' => 'BOw3nTxCTTDQ7MCQrmJGLA-aDZTLDkTPec10pVMUMx89m9aQnzWNN-c0_ZoRCazAsVy0YepzHLxVCg61BJ8N-Gc', // (recommended) uncompressed public key P-256 encoded in Base64-URL
+                        'privateKey' => 'Gz1ANMGddaPHFdmsDbNOKFuUDT3hUaBsm9udVHn7Nx8', // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+                        // 'pemFile' => 'path/to/pem', // if you have a PEM file and can link to it on your filesystem
+                        // 'pem' => 'pemFileContent', // if you have a PEM file and want to hardcode its content
+                    ],
+                ];
+                $webPush = new WebPush($auth);
+                $sent = $webPush->sendNotification(
+                    Subscription::create([
+                        'endpoint' => 'https://fcm.googleapis.com/fcm/send/dF6z4BMKZU4:APA91bGOudOCaUOT27YOrNR_QjbTQcAJM4HmtK9Nd97814x88TgqQY7AVFnvPqF-rvSgjQAMEUJkaGLqxkiBLmbmLtqNMrKlX-DlHd1qEbZskvL8luFOdXHhgCs5rE3LdVblfTfnCNA0',
+                        'contentEncoding' => 'aesgcm',
+                    ]),
+                    "payload test", // optional (defaults null)
+                    true // optional (defaults false)
+                );
+                var_dump($sent);
             }
         }
         if (!empty($flattened_notifications)) {

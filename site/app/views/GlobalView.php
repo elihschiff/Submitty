@@ -3,6 +3,8 @@
 namespace app\views;
 
 use app\models\Breadcrumb;
+use Minishlink\WebPush\WebPush;
+use Minishlink\WebPush\Subscription;
 
 class GlobalView extends AbstractView {
     public function header($breadcrumbs, $wrapper_urls, $sidebar_buttons, $notifications_info, $css, $js, $duck_img) {
@@ -52,7 +54,8 @@ class GlobalView extends AbstractView {
             "system_message" => $this->core->getConfig()->getSystemMessage(),
             "csrf_token" => $this->core->getCsrfToken(),
             "enable_banner" => $config_data['duck_special_effects'],
-            "duck_img" => $duck_img
+            "duck_img" => $duck_img,
+            "applicationServerKey" => "BOw3nTxCTTDQ7MCQrmJGLA-aDZTLDkTPec10pVMUMx89m9aQnzWNN-c0_ZoRCazAsVy0YepzHLxVCg61BJ8N-Gc"
         ]);
     }
 
